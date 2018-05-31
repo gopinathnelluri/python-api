@@ -46,6 +46,11 @@ class Vehicles(Resource):
                                      type=args['type'], description=args['description'])
         return {"status":"success"}
 
+    def delete(self):
+        conn = db_connect.connect()
+        result = conn.execute("DELETE from vehicle_data order by v_id desc limit 1")
+        return {"status":"success"}
+
 
 class VehicleItem(Resource):
     def get(self,vehicle_id):
