@@ -13,7 +13,7 @@ api = Api(app)
 class Vehicles(Resource):
     def get(self):
         conn = db_connect.connect()
-        result = conn.execute("select * from vehicle_data") # This line performs query and returns json result
+        result = conn.execute("select * from vehicle_data")
         data = result.cursor.fetchall()
         vehicles = []
 
@@ -55,9 +55,8 @@ class Vehicles(Resource):
 class VehicleItem(Resource):
     def get(self,vehicle_id):
         conn = db_connect.connect()
-        result = conn.execute("select * from vehicle_data where v_id = :v_id", v_id=vehicle_id) # This line performs query and returns json result
+        result = conn.execute("select * from vehicle_data where v_id = :v_id", v_id=vehicle_id) 
         data = result.cursor.fetchall()
-        vehicles = []
         responseObject = {}
         for row in data:
             responseObject = {
@@ -90,11 +89,54 @@ class VehicleItem(Resource):
     
     def delete(self,vehicle_id):
         conn = db_connect.connect()
-        result = conn.execute("DELETE from vehicle_data where v_id = :v_id", v_id=vehicle_id) # This line performs query and returns json result
+        result = conn.execute("DELETE from vehicle_data where v_id = :v_id", v_id=vehicle_id)
         return {"status":"success"}
+
+class SearchTag(Resource):
+    def get(self,tag1,tag2):
+        conn = db_connect.connect()
+        query = ""
+        finaltag = ""
+        if tag1=="model":
+            query = "select * from vehicle_data where model like :tag"
+            finaltag = "%"+tag2+"%"
+        elif tag1=="year":
+            query = "select * from vehicle_data where year = :tag"
+            finaltag = tag2
+        elif tag1=="brand":
+            query = "select * from vehicle_data where brand like :tag"
+            finaltag = "%"+tag2+"%"
+        elif tag1=="speed":
+            query = "select * from vehicle_data where speed like :tag"
+            finaltag = "%"+tag2+"%"
+        elif tag1=="type":
+            query = "select * from vehicle_data where type like :tag"
+            finaltag = "%"+tag2+"%"
+        elif tag1=="description":    
+            query = "select * from vehicle_data where description like :tag"
+            finaltag = "%"+tag2+"%"
+        
+        result = conn.execute(query, tag=finaltag) 
+        data = result.cursor.fetchall()
+        vehicles = []
+        responseObject = {}
+        for row in data:
+            responseObject = {
+                "vehicle_id": row[0],
+                "brand" : row[3],
+                "model" : row[1],
+                "year" : row[2],
+                "speed": row[4],
+                "type" : row[5],
+                "description": row[6] 
+            }
+            vehicles.append(responseObject)
+            
+        return vehicles
    
 api.add_resource(Vehicles, '/vehicles') # Route_1
-api.add_resource(VehicleItem, '/vehicles/<string:vehicle_id>') # Route_1
+api.add_resource(VehicleItem, '/vehicles/<string:vehicle_id>') # Route_2
+api.add_resource(SearchTag, '/vehicles/search/<string:tag1>/<string:tag2>') # Route_3
 
 if __name__ == '__main__':
      app.run()
