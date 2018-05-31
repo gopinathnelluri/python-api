@@ -1,6 +1,6 @@
 # Rackspace-Python-Assessment-REST-API
 
-### REST API end-Points:
+### Sample Requests:
 
 GET:
 ```sh
