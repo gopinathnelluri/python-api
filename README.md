@@ -1,11 +1,47 @@
 # Rackspace-Python-Assessment-REST-API
 
-### Sample Requests:
+### Sample GET Requests:
 
 GET all vehicles:
 ```sh
 curl -X GET http://127.0.0.1:5000/vehicles
 ```
+
+GET vehicle with ID = 1:
+```sh
+curl -X GET http://127.0.0.1:5000/vehicles/1
+```
+
+
+## Search
+
+GET all vehicles by type Car:
+```sh
+curl -X GET http://127.0.0.1:5000/vehicles/search/type/Car
+```
+
+GET all vehicles of brand BMW:
+```sh
+curl -X GET http://127.0.0.1:5000/vehicles/search/brand/BMW
+```
+
+GET all vehicles with year of make 2002:
+```sh
+curl -X GET http://127.0.0.1:5000/vehicles/search/year/2002
+```
+
+GET all vehicles with word 'flight' in description:
+```sh
+curl -X GET http://127.0.0.1:5000/vehicles/search/description/flight
+```
+
+GET all vehicles with model '7777':
+```sh
+curl -X GET http://127.0.0.1:5000/vehicles/search/description/7777
+```
+
+
+### Sample POST Requests:
 
 POST new vehicle:
 ```sh
@@ -24,10 +60,7 @@ DELETE recently added vehicle:
 curl -X DELETE http://127.0.0.1:5000/vehicles
 ```
 
-GET vehicle with ID = 1:
-```sh
-curl -X GET http://127.0.0.1:5000/vehicles/1
-```
+### Sample PUT Requests:
 
 PUT(update data) vehicle with ID = 1:
 ```sh
@@ -42,7 +75,12 @@ curl -X PUT \
   -F 'description=Boeing flight'
 ```
 
+### Sample DELETE Requests:
+
 DELETE vehicle with ID = 1:
 ```sh
 curl -X DELETE http://127.0.0.1:5000/vehicles/1
 ```
+
+
+
