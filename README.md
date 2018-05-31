@@ -13,7 +13,7 @@ curl -X GET http://127.0.0.1:5000/vehicles/1
 ```
 
 
-## Search
+> #### Search
 
 GET all vehicles by type Car:
 ```sh
