@@ -2,12 +2,12 @@
 
 ### Sample Requests:
 
-GET:
+GET all vehicles:
 ```sh
 curl -X GET http://127.0.0.1:5000/vehicles
 ```
 
-POST:
+POST new vehicle:
 ```sh
 curl -X POST \
   http://127.0.0.1:5000/vehicles \
@@ -19,13 +19,17 @@ curl -X POST \
   -F type=Aeroplan \
   -F 'description=Boeing flight'
 ```
+DELETE recently added vehicle:
+```sh
+curl -X DELETE http://127.0.0.1:5000/vehicles
+```
 
-GET:
+GET vehicle with ID = 1:
 ```sh
 curl -X GET http://127.0.0.1:5000/vehicles/1
 ```
 
-PUT:
+PUT(update data) vehicle with ID = 1:
 ```sh
 curl -X PUT \
   http://127.0.0.1:5000/vehicles/1 \
@@ -38,7 +42,7 @@ curl -X PUT \
   -F 'description=Boeing flight'
 ```
 
-DELETE:
+DELETE vehicle with ID = 1:
 ```sh
 curl -X DELETE http://127.0.0.1:5000/vehicles/1
 ```
